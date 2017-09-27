@@ -155,12 +155,13 @@ if(isset($_POST["page"]) && !empty($_POST["page"])) //Page Validation
 			$last_loaded_id = strip_tags($_POST["last_loaded_id"]);
 			$page_url = $_POST["page_url"];
 		
-			$check_for_more_comments = mysql_query("select * from `comments` where `id` > '".mysql_real_escape_string($last_loaded_id)."' and `page_url` = '".mysql_real_escape_string($page_url)."' order by `id desc` desc limit 5");
+			$check_for_more_comments = mysql_query("select * from `comments` where `id` > '".mysql_real_escape_string($last_loaded_id)."' and `page_url` = '".mysql_real_escape_string($page_url)."' order by id desc limit 5");
+			echo "select * from `comments` where `id` > '".mysql_real_escape_string($last_loaded_id)."' and `page_url` = '".mysql_real_escape_string($page_url)."' order by `id desc` limit 5";
 			
 			//Check for the name of the admin for comment moderation purpose
-			$check_for_admin_name = mysql_query("select * from `users` order by `id` desc limit 1");
+			$check_for_admin_name = mysql_query("select * from `users` order by `id` desc");
 			$getr_admin_name = mysql_fetch_array($check_for_admin_name);
-			
+			//echo count($check_for_more_comments);die;
 			
 			if(mysql_num_rows($check_for_more_comments) > 0)
 			{
